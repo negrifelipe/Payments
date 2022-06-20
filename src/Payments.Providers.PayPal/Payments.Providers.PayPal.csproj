@@ -4,7 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
 	<RootNamespace>Feli.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
-
+	
+  <PropertyGroup>
+	<PackageId>Feli.Payments.Providers.PayPal</PackageId>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Description>PayPal payment provider implementation</Description>
+	<RepositoryUrl>https://github.com/negrifelipe/Payments</RepositoryUrl>
+	<Authors>Felipe Negri</Authors>
+	<Version>0.0.0</Version>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<GenerateNugetPackage>true</GenerateNugetPackage>
+  </PropertyGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\Payments.API\Payments.API.csproj" />
   </ItemGroup>

@@ -5,6 +5,17 @@
     <RootNamespace>Feli.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+	<PackageId>Feli.Payments.API</PackageId>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Description>Contains all the abstractions for payments</Description>
+	<RepositoryUrl>https://github.com/negrifelipe/Payments</RepositoryUrl>
+	<Authors>Felipe Negri</Authors>
+	<Version>0.0.0</Version>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<GenerateNugetPackage>true</GenerateNugetPackage>
+  </PropertyGroup>
+	
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />

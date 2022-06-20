@@ -1,0 +1,31 @@
+name: Payments.Providers.PayPal
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+jobs:
+  deploy:
+    name: "NuGet Deployment"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout Repository
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Update version
+      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" src/Payments.Providers.PayPal/Payments.Providers.PayPal.csproj"  
+    - name: Build
+      run: dotnet build src/Payments.Providers.PayPal/Payments.Providers.PayPal.csproj --configuration Release
+    - name: Push to NuGet
+      run: dotnet nuget push src/Payments.Providers.PayPal/bin/Release/*.nupkg
+             --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
+             --source https://api.nuget.org/v3/index.json
