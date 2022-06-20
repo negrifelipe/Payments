@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Payments.API\Payments.API.csproj" />
+    <ProjectReference Include="..\..\src\Payments.Data.Dapper\Payments.Data.Dapper.csproj" />
+    <ProjectReference Include="..\..\src\Payments.Providers.PayPal\Payments.Providers.PayPal.csproj" />
+    <ProjectReference Include="..\..\src\Payments\Payments.csproj" />
+  </ItemGroup>
+
+</Project>
