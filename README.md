@@ -25,6 +25,7 @@
   }
 }
 ```
+- Create a class that inherits IPaymentUpdatedEvent to listen for payment state events
 - Register your services like this:
 ```cs
 builder.Services.AddOptions();
