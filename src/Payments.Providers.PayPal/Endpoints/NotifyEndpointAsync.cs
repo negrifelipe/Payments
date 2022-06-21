@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -36,7 +37,7 @@ namespace Feli.Payments.Providers.PayPal.Endpoints
         [ApiExplorerSettings(IgnoreApi = true)]
         public override async Task HandleAsync(CancellationToken cancellationToken = default)
         {
-            using var reader = new StreamReader(HttpContext.Request.Body);
+            using var reader = new StreamReader(HttpContext.Request.Body, Encoding.ASCII);
             var body = await reader.ReadToEndAsync();
 
             var form = HttpUtility.ParseQueryString(body);
