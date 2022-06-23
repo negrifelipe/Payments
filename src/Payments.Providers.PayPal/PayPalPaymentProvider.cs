@@ -29,7 +29,7 @@ namespace Feli.Payments.Providers.PayPal
 
         public Task<StartPaymentResultDto> StartPaymentAsync(StartPaymentDto startPayment)
         {
-            var notify_url = paymentOptions.CurrentValue.BaseUrl.TrimEnd('/') + "/payments/paypal/notify";
+            var notify_url = paymentOptions.CurrentValue.BaseUrl.TrimEnd('/') + "/api/paypal/notify";
 
             var form = new Dictionary<string, string>()
             {

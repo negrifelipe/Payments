@@ -2,10 +2,10 @@
 {
     public enum PaymentState
     {
-        Completed,
-        Cancelled,
-        Refunded,
-        Reversed,
-        Waiting
+        Completed = 0,
+        Cancelled = 1,
+        Refunded = 2,
+        Reversed = 3,
+        Waiting = 4
     }
 }

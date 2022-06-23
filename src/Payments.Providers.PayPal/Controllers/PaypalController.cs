@@ -1,5 +1,4 @@
-﻿using Ardalis.ApiEndpoints;
-using Feli.Payments.API.Payments;
+﻿using Feli.Payments.API.Payments;
 using Feli.Payments.API.Services;
 using Feli.Payments.Providers.PayPal.Cofiguration;
 using Feli.Payments.Providers.PayPal.Constants;
@@ -11,35 +10,40 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Feli.Payments.Providers.PayPal.Endpoints
+namespace Feli.Payments.Providers.PayPal.Controllers
 {
-    public class NotifyEndpointAsync : EndpointBaseAsync
-        .WithoutRequest
-        .WithoutResult
+    [ApiController]
+    [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class PaypalController : ControllerBase
     {
         private readonly IOptionsMonitor<PayPalOptions> options;
         private readonly IPaymentsService paymentsService;
         private readonly HttpClient client;
 
-        public NotifyEndpointAsync(IPaymentsService paymentsService, IHttpClientFactory httpClientFactory, IOptionsMonitor<PayPalOptions> options)
+        public PaypalController(IPaymentsService paymentsService, IHttpClientFactory httpClientFactory, IOptionsMonitor<PayPalOptions> options)
         {
             this.options = options;
             this.paymentsService = paymentsService;
             this.client = httpClientFactory.CreateClient("paypal-ipn");
         }
 
-
-        [HttpPost("/payments/paypal/notify")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public override async Task HandleAsync(CancellationToken cancellationToken = default)
+        [HttpPost("notify")]
+        public async Task<IActionResult> NotifyAsync()
         {
-            using var reader = new StreamReader(HttpContext.Request.Body, Encoding.ASCII);
-            var body = await reader.ReadToEndAsync();
+            using var reader = new StreamReader(Request.Body, Encoding.ASCII);
+            var payload = await reader.ReadToEndAsync();
 
+            await ValidateAsync(payload);
+
+            return Ok();
+        }
+
+        private async Task ValidateAsync(string body)
+        {
             var form = HttpUtility.ParseQueryString(body);
 
             if (!Guid.TryParse(form["custom"], out var custom))
